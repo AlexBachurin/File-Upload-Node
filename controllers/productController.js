@@ -8,7 +8,8 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  res.send("Get All Products");
+  const products = await ProductModel.find({});
+  res.status(StatusCodes.OK).json({ products });
 };
 
 module.exports = {
