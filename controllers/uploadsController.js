@@ -4,6 +4,7 @@ const { BadRequestError } = require("../errors");
 const path = require("path");
 const { log } = require("console");
 const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 // LOCAL UPLOAD FUNCTIONALITY
 const uploadProductImageLocal = async (req, res) => {
@@ -45,6 +46,8 @@ const uploadProductImage = async (req, res) => {
       folder: "FILE-UPLOAD-NODE",
     }
   );
+  //   clear temp files
+  fs.unlinkSync(req.files.image.tempFilePath);
   //   log(result)
   //   send back secure url
   return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
